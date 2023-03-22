@@ -1,8 +1,6 @@
+
+(()=>{
 const btn = document.querySelector("[data-form-btn]")
-
-
-console.log(btn)
-
 const createTask = (e) =>{
     e.preventDefault()
     const textTask = document.querySelector("[data-form-input]")
@@ -11,16 +9,31 @@ const createTask = (e) =>{
     const task = document.createElement('li')
     task.classList.add("card")
     textTask.value = ""
-    const content = ` <div>
-    <i class="far fa-check-square icon"></i>
-    <span class="task">${value}</span>
-  </div>
+    const taskContent = document.createElement('div')
+    taskContent.appendChild(checkComplete())
+    const titleTask = document.createElement('span')
+    titleTask.classList.add('task')
+    titleTask.innerText = value
+    taskContent.appendChild(titleTask)
+    const content = `
+    
   <i class="fas fa-trash-alt trashIcon icon"></i>`
-  task.innerHTML=content
+  //task.innerHTML=content
+  task.appendChild(taskContent)
   card.appendChild(task)
-    console.log(content)
+}
+btn.addEventListener("click", createTask)
+
+const checkComplete = () =>{
+    const i = document.createElement('i')
+    i.classList.add('far','fa-check-square','icon')
+    i.addEventListener('click', completeTask)
+    return i
 }
 
-
-
-btn.addEventListener("click", createTask)
+const completeTask = (e)=>{
+    const element = e.target
+    element.classList.toggle('fas')
+    element.classList.toggle('completeIcon')
+    element.classList.toggle('far')
+}})();
